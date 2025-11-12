@@ -1,5 +1,8 @@
+const fs = require("fs");
+const input = parseInt(fs.readFileSync(0, "utf8").trim(), 10);
+
 function convertToRoman(num) {
-  if (num === 0) return ""; // Romans had no zero
+  if (num === 0) return "";
 
   const romanMap = [
     ["M", 1000],
@@ -19,15 +22,14 @@ function convertToRoman(num) {
 
   let result = "";
 
-  // For numbers above 3999, just repeat 'M' as needed
   while (num >= 1000) {
     result += "M";
     num -= 1000;
   }
 
-  for (let [roman, value] of romanMap) {
+  for (let [symbol, value] of romanMap) {
     while (num >= value) {
-      result += roman;
+      result += symbol;
       num -= value;
     }
   }
@@ -35,11 +37,4 @@ function convertToRoman(num) {
   return result;
 }
 
-// ✅ Test Cases
-console.log(convertToRoman(14));    // XIV
-console.log(convertToRoman(798));   // DCCXCVIII
-console.log(convertToRoman(3999));  // MMMCMXCIX
-console.log(convertToRoman(4000));  // MMMM
-console.log(convertToRoman(10000)); // MMMMMMMMMM
-console.log(convertToRoman(99999)); // M repeated 99 times + CMXCIX
-console.log(convertToRoman(0));     // ""
+console.log(convertToRoman(input));
